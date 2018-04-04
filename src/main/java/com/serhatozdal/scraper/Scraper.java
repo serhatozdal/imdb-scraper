@@ -1,104 +1,57 @@
 package com.serhatozdal.scraper;
 
 import com.serhatozdal.scraper.http.Url;
+import com.serhatozdal.scraper.model.Media;
 import com.serhatozdal.scraper.util.DateUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.serhatozdal.scraper.regex.Regex;
 
 /**
  * @author serhatozdal
  */
-public class Scraper {
-
-    private static final String A_HREF_ALL = "<a.*?>(.*?)</a>";
-    private static final String IMDB_ORIGINAL_TITLE = "property='og:title' content=\"(.*?)(\"| \\()";
-    private static final String IMDB_OTHER_TITLE = "<title>(.*?)( \\().*</title>";
-    private static final String IMDB_YEAR = "property='og:title' content=\".*?([0-9]{4}).*?\"";
-    private static final String IMDB_RATING = "<span itemprop=\"ratingValue\">(.*?)</span>";
-    private static final String IMDB_RATING_COUNT = "<span class=\"small\" itemprop=\"ratingCount\">(.*?)</span>";
-    private static final String IMDB_GENRES = "<span class=\"itemprop\" itemprop=\"genre\">(.*?)</span>";
-    private static final String IMDB_DURATION = "Runtime:</h4><time itemprop=\"duration\" datetime=\"PT106M\">(.*?) min</time>";
-    private static final String IMDB_COUNTRIES = "Country:(.*?)(</div>|>.?and)";
-    private static final String IMDB_RELEASE_DATE = "Release Date:</h4>.*?(\\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December) (19|20)\\d{2})";
-    private static final String IMDB_LANGUAGES = "Language:(.*?)(</div>)";
-    private static final String IMDB_RECOMMENDED_TITLES = "<div class=\"rec_item\".*?<a href=\".*?/(tt.*?)/.*?\">.*?</a>";
-    private static final String IMDB_BUDGET = "<h4.*?Budget:</h4>(.*?)(<span.*?|</div>)";
-    private static final String IMDB_CUMULATIVE_GROSS = "class=\"inline\">Cumulative Worldwide Gross:</h4>(.*?)(<span.*?|</div)";
-
-    private String id;
-    private String originalTitle;
-    private String otherTitle;
-    private Short year;
-    private Float rating;
-    private Float ratingCount;
-    private List<String> genres;
-    private Integer duration;
-    private List<String> countries;
-    private String releaseDate;
-    private String releaseDateFormatted;
-    private List<String> languages;
-    private List<String> recommendedTitles;
-    private String budget;
-    private String cumulativeGross;
+final public class Scraper extends Regex
+{
 
     public Scraper() {
 
     }
 
-    public void findMediaById(String id) {
-
-        this.id = id;
+    public Media findMediaById(String id) {
 
         String imdbUrl = "http://www.imdb.com/title/" + id;
         Url url = new Url();
         String html = url.fetchHtml(imdbUrl);
+        Media media = new Media();
 
-        originalTitle = match(IMDB_ORIGINAL_TITLE, html);
-        otherTitle = match(IMDB_OTHER_TITLE, html);
-        year = Short.valueOf(match(IMDB_YEAR, html));
-        rating = Float.valueOf(match(IMDB_RATING, html).replace(",", ".")); // FIXME tr kontrolune gore noktayi virgul yapmak degisecek
-        ratingCount = Float.valueOf(match(IMDB_RATING_COUNT, html));
-        genres = matchAll(IMDB_GENRES, html);
-        duration = Integer.valueOf(match(IMDB_DURATION, html));
-        countries = matchAll(A_HREF_ALL, match(IMDB_COUNTRIES, html));
-        releaseDate = match(IMDB_RELEASE_DATE, html);
-        releaseDateFormatted = DateUtil.format(DateUtil.getDate(match(IMDB_RELEASE_DATE, html)), "yyyy-MM-dd");
-        languages = matchAll(A_HREF_ALL, match(IMDB_LANGUAGES, html));
-        recommendedTitles = matchAll(IMDB_RECOMMENDED_TITLES, html);
-        budget = match(IMDB_BUDGET, html);
-        cumulativeGross = match(IMDB_CUMULATIVE_GROSS, html);
+        media.setId(id);
+        media.setMediaType(match(MEDIA_TYPE, html));
+        media.setOriginalTitle(match(IMDB_ORIGINAL_TITLE, html));
+        media.setOtherTitle(match(IMDB_OTHER_TITLE, html));
+        media.setYear(Short.valueOf(match(IMDB_YEAR, html)));
+        media.setRating(Float.valueOf(match(IMDB_RATING, html).replace(",", "."))); // FIXME tr kontrolune gore noktayi virgul yapmak degisecek
+        media.setRatingCount(Float.valueOf(match(IMDB_RATING_COUNT, html)));
+        media.setGenres(matchAll(IMDB_GENRES, html));
+        media.setDuration(Integer.valueOf(match(IMDB_DURATION, html)));
+        media.setCountries(matchAll(A_HREF_ALL, match(IMDB_COUNTRIES, html)));
+        media.setReleaseDate(match(IMDB_RELEASE_DATE, html));
+        media.setReleaseDateFormatted(DateUtil.format(DateUtil.getDate(match(IMDB_RELEASE_DATE, html)), "yyyy-MM-dd"));
+        media.setLanguages(matchAll(A_HREF_ALL, match(IMDB_LANGUAGES, html)));
+        media.setRecommendedTitles(matchAll(IMDB_RECOMMENDED_TITLES, html));
+        media.setBudget(match(IMDB_BUDGET, html));
+        media.setCumulativeGross(match(IMDB_CUMULATIVE_GROSS, html));
+        media.setPlotKeywords(matchAll(A_HREF_SPAN, match(IMDB_PLOT_KEYWORDS, html)));
+        media.setAlsoKnownAs(match(IMDB_ALSO_KNOWN_AS, html));
+        media.setStoryLine(match(IMDB_STORYLINE, html));
+        media.setOscars(!match(IMDB_OSCARS, html).equals("") ? Integer.valueOf(match(IMDB_OSCARS, html)) : null);
+        media.setAwards(!match(IMDB_AWARDS, html).equals("") ? Integer.valueOf(match(IMDB_AWARDS, html)) : null);
+        media.setNominations(!match(IMDB_NOMINATIONS, html).equals("") ? Integer.valueOf(match(IMDB_NOMINATIONS, html)) : null);
+        media.setPoster(match(IMDB_POSTER, html).replaceAll("_V1_(.*?).jpg", "_V1_SY300.jpg"));
+        media.setPosterLarge(match(IMDB_POSTER, html).replaceAll("_V1_(.*?).jpg", "_V1_SY500.jpg"));
 
         System.out.println(html);
 
+        return media;
     }
 
-    private String match(String regexPattern, String html) {
-        return match(regexPattern, html, 1);
-    }
 
-    private String match(String regexPattern, String html, Integer groupIndex) {
-        String result = "";
-        Pattern pattern = Pattern.compile(regexPattern);
-        Matcher matcher = pattern.matcher(html);
-        if (matcher.find())
-            result = matcher.group(groupIndex);
-        return result;
-    }
-
-    private List<String> matchAll(String regexPattern, String html) {
-        return matchAll(regexPattern, html, 1);
-    }
-
-    private List<String> matchAll(String regexPattern, String html, Integer groupIndex) {
-        List<String> resultList = new ArrayList<>();
-        Pattern pattern = Pattern.compile(regexPattern);
-        Matcher matcher = pattern.matcher(html);
-        while (matcher.find())
-            resultList.add(matcher.group(groupIndex));
-        return resultList;
-    }
 
 }
