@@ -1,9 +1,7 @@
 package com.serhatozdal.scraper;
 
-import com.serhatozdal.scraper.http.Url;
-
 /**
- * @author msozdal
+ * @author serhatozdal
  */
 public class Test {
 

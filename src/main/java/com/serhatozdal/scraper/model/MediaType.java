@@ -1,7 +1,7 @@
 package com.serhatozdal.scraper.model;
 
 /**
- * @author msozdal
+ * @author serhatozdal
  */
 public enum MediaType {
     MOVIE,

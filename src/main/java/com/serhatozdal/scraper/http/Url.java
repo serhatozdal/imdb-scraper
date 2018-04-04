@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * @author msozdal
+ * @author serhatozdal
  */
 public class Url {
 
