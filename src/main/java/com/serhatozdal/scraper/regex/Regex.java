@@ -1,15 +1,16 @@
 package com.serhatozdal.scraper.regex;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.serhatozdal.scraper.model.Credits;
+
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * @author serhatozdal
  */
-public class Regex extends RegexPatterns
-{
+public class Regex extends RegexPatterns {
+
     protected String match(String regexPattern, String html) {
         return match(regexPattern, html, 1);
     }
@@ -34,5 +35,21 @@ public class Regex extends RegexPatterns
         while (matcher.find())
             resultList.add(matcher.group(groupIndex));
         return resultList;
+    }
+
+    protected List<Credits> matchAllCredits(String regexPattern, String html, Integer keyIndex, Integer valueIndex) {
+        List<Credits> list = new ArrayList<>();
+
+        List<String> keyList = matchAll(regexPattern, html, keyIndex);
+        List<String> valueList = matchAll(regexPattern, html, valueIndex);
+        if (keyList.size() == valueList.size()) {
+            for (int i = 0; i < keyList.size(); i++) {
+                Credits credits = new Credits();
+                credits.setImdbId(keyList.get(i));
+                credits.setName(valueList.get(i));
+                list.add(credits);
+            }
+        }
+        return list;
     }
 }

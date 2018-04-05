@@ -6,9 +6,11 @@ import java.util.List;
 /**
  * @author serhatozdal
  */
-public class Media implements Serializable
-{
+public class Media implements Serializable {
+
     private static final long serialVersionUID = -2125462535911961247L;
+
+    private Boolean mediaFound = false;
 
     private String id;
     private String mediaType;
@@ -34,244 +36,249 @@ public class Media implements Serializable
     private Integer nominations;
     private String poster;
     private String posterLarge;
+    private List<Credits> directors;
+    private List<Credits> writers;
+    private List<Credits> producers;
+    private List<Credits> musicians;
+    private List<Credits> cast;
 
-    public String getId()
-    {
+    public String getId() {
         return id;
     }
 
-    public void setId(String id)
-    {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getMediaType()
-    {
+    public String getMediaType() {
         return mediaType;
     }
 
-    public void setMediaType(String mediaType)
-    {
+    public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
 
-    public String getOriginalTitle()
-    {
+    public String getOriginalTitle() {
         return originalTitle;
     }
 
-    public void setOriginalTitle(String originalTitle)
-    {
+    public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;
     }
 
-    public String getOtherTitle()
-    {
+    public String getOtherTitle() {
         return otherTitle;
     }
 
-    public void setOtherTitle(String otherTitle)
-    {
+    public void setOtherTitle(String otherTitle) {
         this.otherTitle = otherTitle;
     }
 
-    public Short getYear()
-    {
+    public Short getYear() {
         return year;
     }
 
-    public void setYear(Short year)
-    {
+    public void setYear(Short year) {
         this.year = year;
     }
 
-    public Float getRating()
-    {
+    public Float getRating() {
         return rating;
     }
 
-    public void setRating(Float rating)
-    {
+    public void setRating(Float rating) {
         this.rating = rating;
     }
 
-    public Float getRatingCount()
-    {
+    public Float getRatingCount() {
         return ratingCount;
     }
 
-    public void setRatingCount(Float ratingCount)
-    {
+    public void setRatingCount(Float ratingCount) {
         this.ratingCount = ratingCount;
     }
 
-    public List<String> getGenres()
-    {
+    public List<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<String> genres)
-    {
+    public void setGenres(List<String> genres) {
         this.genres = genres;
     }
 
-    public Integer getDuration()
-    {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration)
-    {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
-    public List<String> getCountries()
-    {
+    public List<String> getCountries() {
         return countries;
     }
 
-    public void setCountries(List<String> countries)
-    {
+    public void setCountries(List<String> countries) {
         this.countries = countries;
     }
 
-    public String getReleaseDate()
-    {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate)
-    {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
-    public String getReleaseDateFormatted()
-    {
+    public String getReleaseDateFormatted() {
         return releaseDateFormatted;
     }
 
-    public void setReleaseDateFormatted(String releaseDateFormatted)
-    {
+    public void setReleaseDateFormatted(String releaseDateFormatted) {
         this.releaseDateFormatted = releaseDateFormatted;
     }
 
-    public List<String> getLanguages()
-    {
+    public List<String> getLanguages() {
         return languages;
     }
 
-    public void setLanguages(List<String> languages)
-    {
+    public void setLanguages(List<String> languages) {
         this.languages = languages;
     }
 
-    public List<String> getRecommendedTitles()
-    {
+    public List<String> getRecommendedTitles() {
         return recommendedTitles;
     }
 
-    public void setRecommendedTitles(List<String> recommendedTitles)
-    {
+    public void setRecommendedTitles(List<String> recommendedTitles) {
         this.recommendedTitles = recommendedTitles;
     }
 
-    public String getBudget()
-    {
+    public String getBudget() {
         return budget;
     }
 
-    public void setBudget(String budget)
-    {
+    public void setBudget(String budget) {
         this.budget = budget;
     }
 
-    public String getCumulativeGross()
-    {
+    public String getCumulativeGross() {
         return cumulativeGross;
     }
 
-    public void setCumulativeGross(String cumulativeGross)
-    {
+    public void setCumulativeGross(String cumulativeGross) {
         this.cumulativeGross = cumulativeGross;
     }
 
-    public List<String> getPlotKeywords()
-    {
+    public List<String> getPlotKeywords() {
         return plotKeywords;
     }
 
-    public void setPlotKeywords(List<String> plotKeywords)
-    {
+    public void setPlotKeywords(List<String> plotKeywords) {
         this.plotKeywords = plotKeywords;
     }
 
-    public String getAlsoKnownAs()
-    {
+    public String getAlsoKnownAs() {
         return alsoKnownAs;
     }
 
-    public void setAlsoKnownAs(String alsoKnownAs)
-    {
+    public void setAlsoKnownAs(String alsoKnownAs) {
         this.alsoKnownAs = alsoKnownAs;
     }
 
-    public String getStoryLine()
-    {
+    public String getStoryLine() {
         return storyLine;
     }
 
-    public void setStoryLine(String storyLine)
-    {
+    public void setStoryLine(String storyLine) {
         this.storyLine = storyLine;
     }
 
-    public Integer getOscars()
-    {
+    public Integer getOscars() {
         return oscars;
     }
 
-    public void setOscars(Integer oscars)
-    {
+    public void setOscars(Integer oscars) {
         this.oscars = oscars;
     }
 
-    public Integer getAwards()
-    {
+    public Integer getAwards() {
         return awards;
     }
 
-    public void setAwards(Integer awards)
-    {
+    public void setAwards(Integer awards) {
         this.awards = awards;
     }
 
-    public Integer getNominations()
-    {
+    public Integer getNominations() {
         return nominations;
     }
 
-    public void setNominations(Integer nominations)
-    {
+    public void setNominations(Integer nominations) {
         this.nominations = nominations;
     }
 
-    public String getPoster()
-    {
+    public String getPoster() {
         return poster;
     }
 
-    public void setPoster(String poster)
-    {
+    public void setPoster(String poster) {
         this.poster = poster;
     }
 
-    public String getPosterLarge()
-    {
+    public String getPosterLarge() {
         return posterLarge;
     }
 
-    public void setPosterLarge(String posterLarge)
-    {
+    public void setPosterLarge(String posterLarge) {
         this.posterLarge = posterLarge;
+    }
+
+    public List<Credits> getDirectors() {
+        return directors;
+    }
+
+    public void setDirectors(List<Credits> directors) {
+        this.directors = directors;
+    }
+
+    public List<Credits> getWriters() {
+        return writers;
+    }
+
+    public void setWriters(List<Credits> writers) {
+        this.writers = writers;
+    }
+
+    public List<Credits> getProducers() {
+        return producers;
+    }
+
+    public void setProducers(List<Credits> producers) {
+        this.producers = producers;
+    }
+
+    public List<Credits> getMusicians() {
+        return musicians;
+    }
+
+    public void setMusicians(List<Credits> musicians) {
+        this.musicians = musicians;
+    }
+
+    public List<Credits> getCast() {
+        return cast;
+    }
+
+    public void setCast(List<Credits> cast) {
+        this.cast = cast;
+    }
+
+    public Boolean isMediaFound() {
+        return mediaFound;
+    }
+
+    public void setMediaFound(Boolean mediaFound) {
+        this.mediaFound = mediaFound;
     }
 }
