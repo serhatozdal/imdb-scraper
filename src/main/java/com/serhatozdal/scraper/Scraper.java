@@ -16,6 +16,7 @@ import java.util.concurrent.Executors;
  */
 final public class Scraper extends Regex
 {
+    private Boolean downloadPoster = false;
 
     public Scraper() {
 
@@ -102,5 +103,9 @@ final public class Scraper extends Regex
                 media.setCast(casts);
             }
         }
+    }
+
+    public void downloadPoster(Boolean downloadPoster) {
+        this.downloadPoster = downloadPoster;
     }
 }
