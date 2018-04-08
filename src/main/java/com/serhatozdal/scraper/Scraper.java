@@ -69,8 +69,14 @@ final public class Scraper extends Regex
             media.setOscars(!match(IMDB_OSCARS, html).equals("") ? Integer.valueOf(match(IMDB_OSCARS, html)) : null);
             media.setAwards(!match(IMDB_AWARDS, html).equals("") ? Integer.valueOf(match(IMDB_AWARDS, html)) : null);
             media.setNominations(!match(IMDB_NOMINATIONS, html).equals("") ? Integer.valueOf(match(IMDB_NOMINATIONS, html)) : null);
-            media.setPoster(match(IMDB_POSTER, html).replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_SMALL));
-            media.setPosterLarge(match(IMDB_POSTER, html).replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_LARGE));
+            String poster = match(IMDB_POSTER, html).replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_SMALL);
+            String posterLarge = match(IMDB_POSTER, html).replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_LARGE);
+            if (downloadPoster) {
+                poster = url.downloadFileAsBase64(poster);
+                posterLarge = url.downloadFileAsBase64(posterLarge);
+            }
+            media.setPoster(poster);
+            media.setPosterLarge(posterLarge);
             media.setMediaFound(true);
         }
     }

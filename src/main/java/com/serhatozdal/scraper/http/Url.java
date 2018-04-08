@@ -1,9 +1,16 @@
 package com.serhatozdal.scraper.http;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+
+import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
+import java.util.Base64;
 
 /**
  * @author serhatozdal
@@ -42,4 +49,26 @@ public class Url {
         return html.toString();
     }
 
+        public String downloadFileAsBase64(String fileUrl) {
+        String base64File = null;
+        try {
+            URL url = new URL(fileUrl);
+
+            // download file as bytes
+            BufferedInputStream inputStream = new BufferedInputStream(url.openStream());
+            ReadableByteChannel readableByteChannel = Channels.newChannel(inputStream);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            WritableByteChannel writableByteChannel = Channels.newChannel(outputStream);
+            ByteBuffer byteBuffer = ByteBuffer.allocate(32000);
+            while (readableByteChannel.read(byteBuffer) != -1) {
+                byteBuffer.flip();
+                writableByteChannel.write(byteBuffer);
+                byteBuffer.clear();
+            }
+            base64File = Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return base64File;
+    }
 }
