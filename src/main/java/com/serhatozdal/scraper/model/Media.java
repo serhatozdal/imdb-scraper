@@ -1,19 +1,12 @@
 package com.serhatozdal.scraper.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author serhatozdal
  */
-public class Media implements Serializable {
+public class Media extends Content {
 
-    private static final long serialVersionUID = -2125462535911961247L;
-
-    private Boolean mediaFound = false;
-
-    private String id;
-    private ContentType mediaType;
     private String originalTitle;
     private String otherTitle;
     private Short year;
@@ -41,22 +34,6 @@ public class Media implements Serializable {
     private List<Credits> producers;
     private List<Credits> musicians;
     private List<Credits> cast;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public ContentType getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(ContentType mediaType) {
-        this.mediaType = mediaType;
-    }
 
     public String getOriginalTitle() {
         return originalTitle;
@@ -272,13 +249,5 @@ public class Media implements Serializable {
 
     public void setCast(List<Credits> cast) {
         this.cast = cast;
-    }
-
-    public Boolean isMediaFound() {
-        return mediaFound;
-    }
-
-    public void setMediaFound(Boolean mediaFound) {
-        this.mediaFound = mediaFound;
     }
 }

@@ -9,10 +9,10 @@ import com.serhatozdal.scraper.model.Media;
 public class Test {
 
     public static void main(String[] args) {
-        Scraper scraper = new Scraper();
+        Scraper scraper = new MediaScraper();
         scraper.downloadPoster(true);
-        Media media = scraper.findMediaById("tt0232500");
-        if (media.isMediaFound()) { // media is found
+        Media media = (Media) scraper.findById("tt0232500");
+        if (media.isFound()) { // media is found
             System.out.println(new Gson().toJson(media));
         }
     }
