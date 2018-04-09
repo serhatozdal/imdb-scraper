@@ -1,6 +1,7 @@
 package com.serhatozdal.scraper;
 
 import com.serhatozdal.scraper.http.Url;
+import com.serhatozdal.scraper.model.ContentType;
 import com.serhatozdal.scraper.model.Credits;
 import com.serhatozdal.scraper.model.Media;
 import com.serhatozdal.scraper.util.DateUtil;
@@ -48,7 +49,7 @@ final public class Scraper extends Regex
 
         if (!html.isEmpty()) {
             media.setId(id);
-            media.setMediaType(match(MEDIA_TYPE, html));
+            media.setMediaType(ContentType.get(match(MEDIA_TYPE, html)));
             media.setOriginalTitle(match(IMDB_ORIGINAL_TITLE, html));
             media.setOtherTitle(match(IMDB_OTHER_TITLE, html));
             media.setYear(Short.valueOf(match(IMDB_YEAR, html)));

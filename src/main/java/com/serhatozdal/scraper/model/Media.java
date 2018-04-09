@@ -13,7 +13,7 @@ public class Media implements Serializable {
     private Boolean mediaFound = false;
 
     private String id;
-    private String mediaType;
+    private ContentType mediaType;
     private String originalTitle;
     private String otherTitle;
     private Short year;
@@ -50,11 +50,11 @@ public class Media implements Serializable {
         this.id = id;
     }
 
-    public String getMediaType() {
+    public ContentType getMediaType() {
         return mediaType;
     }
 
-    public void setMediaType(String mediaType) {
+    public void setMediaType(ContentType mediaType) {
         this.mediaType = mediaType;
     }
 
