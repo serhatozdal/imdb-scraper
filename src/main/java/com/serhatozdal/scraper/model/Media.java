@@ -27,8 +27,6 @@ public class Media extends Content {
     private Integer oscars;
     private Integer awards;
     private Integer nominations;
-    private String poster;
-    private String posterLarge;
     private List<Credits> directors;
     private List<Credits> writers;
     private List<Credits> producers;
@@ -193,22 +191,6 @@ public class Media extends Content {
 
     public void setNominations(Integer nominations) {
         this.nominations = nominations;
-    }
-
-    public String getPoster() {
-        return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
-    public String getPosterLarge() {
-        return posterLarge;
-    }
-
-    public void setPosterLarge(String posterLarge) {
-        this.posterLarge = posterLarge;
     }
 
     public List<Credits> getDirectors() {

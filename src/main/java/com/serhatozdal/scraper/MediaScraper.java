@@ -41,7 +41,7 @@ public class MediaScraper extends Scraper {
 
         if (!html.isEmpty()) {
             media.setId(id);
-            media.setContentType(ContentType.get(match(MEDIA_TYPE, html)));
+            media.setContentType(ContentType.get(match(IMDB_CONTENT_TYPE, html)));
             media.setOriginalTitle(match(IMDB_ORIGINAL_TITLE, html));
             media.setOtherTitle(match(IMDB_OTHER_TITLE, html));
             media.setYear(Short.valueOf(match(IMDB_YEAR, html)));

@@ -7,7 +7,9 @@ public class RegexPatterns {
 
     protected static final String A_HREF_ALL = "<a.*?>(.*?)</a>";
     protected static final String A_HREF_SPAN = "<a.*?<span.*?>(.*?)</span>";
-    protected static final String MEDIA_TYPE = "'og:type' content=\"(.*?)\"";
+    protected static final String ALL_HTML_TAGS = "\\<[^>]*>";
+
+    protected static final String IMDB_CONTENT_TYPE = "'og:type' content=\"(.*?)\"";
     protected static final String IMDB_ORIGINAL_TITLE = "property='og:title' content=\"(.*?)(\"| \\()";
     protected static final String IMDB_OTHER_TITLE = "<title>(.*?)( \\().*</title>";
     protected static final String IMDB_YEAR = "property='og:title' content=\".*?([0-9]{4}).*?\"";
@@ -38,4 +40,19 @@ public class RegexPatterns {
     protected static final String IMDB_MUSICIANS = "<h4 class=\"dataHeaderWithBorder\">Music by(.*?)</table>";
     protected static final String IMDB_CAST = "class=\"dataHeaderWithBorder\">.*?Cast(.*?)</table>";
     protected static final String IMDB_CAST_KEY_VALUE = "<a href=\"/name/(.*?)/.*?span.*?>(.*?)</span>.*?class=\"character\".*?div>(<a.*?>)?(.*?)(</a>|</div>)";
+
+    protected static final String IMDB_PERSON_KNOWN_FOR = "id=\"knownfor\">(.*?)<script>";
+    protected static final String IMDB_PERSON_KNOWN_FOR_VALUE = "class=\"knownfor-title-role\"><a href=\"/title/(.*?)/.*?</a>";
+    protected static final String IMDB_PERSON_JOB_CATEGORY = "id=\"name-job-categories\">(.*?)</div>";
+    protected static final String IMDB_PERSON_JOB_CATEGORY_VALUE = "<span class=\"itemprop.*?>(.*?)</span>";
+    protected static final String IMDB_PERSON_BIRTH_NAME = "Birth Name</td><td>(.*?)</td";
+    protected static final String IMDB_PERSON_HEIGHT = "Height</td><td>.*?\\((.*?)\\).*?</td>";
+    protected static final String IMDB_PERSON_BORN_DATE = "Born.*?datetime=\"(.*?)\".*?>";
+    protected static final String IMDB_PERSON_BORN_PLACE = "Born.*?</time.*?<a.*?>(.*?)</a>";
+    protected static final String IMDB_PERSON_DIED_DATE = "Died.*?datetime=\"(.*?)\".*?>";
+    protected static final String IMDB_PERSON_DIED_PLACE = "Died.*?</time.*?<a.*?>(.*?)</a>";
+    protected static final String IMDB_PERSON_BIOGRAPHY = "Mini Bio.*?<p>(.*?)</p>.*?</p>";
+    protected static final String IMDB_PERSON_FILMOGRAPHY = "id=\"filmography\">(.*?)</div><script";
+    protected static final String IMDB_PERSON_FILMOGRAPHY_VALUE = "<b><a href=\"/title/(.*?)/.*?</b";
+    protected static final String IMDB_PERSON_POSTER = "<div class=\"image\">.*?<img.*?src=\"(.*?)\"";
 }

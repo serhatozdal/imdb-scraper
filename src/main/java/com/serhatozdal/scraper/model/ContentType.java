@@ -8,7 +8,8 @@ import java.util.Map;
  */
 public enum ContentType {
     MOVIE("video.movie"),
-    TV_SHOW("video.tv_show");
+    TV_SHOW("video.tv_show"),
+    PERSON("actor");
 
     private static final Map types = new HashMap();
 

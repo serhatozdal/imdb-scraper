@@ -8,6 +8,8 @@ public class Content implements Serializable {
 
     private String id;
     private ContentType contentType;
+    private String poster;
+    private String posterLarge;
 
     public Boolean isFound() {
         return found;
@@ -31,5 +33,21 @@ public class Content implements Serializable {
 
     public void setContentType(ContentType contentType) {
         this.contentType = contentType;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getPosterLarge() {
+        return posterLarge;
+    }
+
+    public void setPosterLarge(String posterLarge) {
+        this.posterLarge = posterLarge;
     }
 }
