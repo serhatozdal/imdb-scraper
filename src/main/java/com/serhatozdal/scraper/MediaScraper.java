@@ -8,6 +8,7 @@ import com.serhatozdal.scraper.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -45,14 +46,22 @@ public class MediaScraper extends Scraper<Media> {
             content.setContentType(ContentType.get(match(IMDB_CONTENT_TYPE, html)));
             content.setOriginalTitle(match(IMDB_ORIGINAL_TITLE, html));
             content.setOtherTitle(match(IMDB_OTHER_TITLE, html));
-            content.setYear(Short.valueOf(match(IMDB_YEAR, html)));
-            content.setRating(Float.valueOf(match(IMDB_RATING, html).replace(",", "."))); // FIXME tr kontrolune gore noktayi virgul yapmak degisecek
-            content.setRatingCount(Float.valueOf(match(IMDB_RATING_COUNT, html)));
+            content.setYear(Optional.of(match(IMDB_YEAR, html)).filter(s -> !s.isEmpty()).map(Short::valueOf).orElse(null));
+            content.setRating(
+                Optional.of(match(IMDB_RATING, html)).filter(s -> !s.isEmpty())
+                        .map(s -> s.replace(",", ".")).map(Float::valueOf).orElse(null)
+            ); // FIXME tr kontrolune gore noktayi virgul yapmak degisecek
+            content.setRatingCount(Optional.of(match(IMDB_RATING_COUNT, html))
+                    .filter(s -> !s.isEmpty()).map(Float::valueOf).orElse(null));
             content.setGenres(matchAll(IMDB_GENRES, html));
-            content.setDuration(Integer.valueOf(match(IMDB_DURATION, html)));
+            content.setDuration(Optional.of(match(IMDB_DURATION, html))
+                    .filter(s -> !s.isEmpty()).map(Integer::valueOf).orElse(null));
             content.setCountries(matchAll(A_HREF_ALL, match(IMDB_COUNTRIES, html)));
             content.setReleaseDate(match(IMDB_RELEASE_DATE, html));
-            content.setReleaseDateFormatted(DateUtil.format(DateUtil.getDate(match(IMDB_RELEASE_DATE, html)), "yyyy-MM-dd"));
+            content.setReleaseDateFormatted(
+                Optional.of(match(IMDB_RELEASE_DATE, html)).filter(s -> !s.isEmpty())
+                        .map(DateUtil::getDate).map(s -> DateUtil.format(s, "yyyy-MM-dd")).orElse(null)
+            );
             content.setLanguages(matchAll(A_HREF_ALL, match(IMDB_LANGUAGES, html)));
             content.setRecommendedTitles(matchAll(IMDB_RECOMMENDED_TITLES, html));
             content.setBudget(match(IMDB_BUDGET, html));
