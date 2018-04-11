@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Content implements Serializable {
 
-    private Boolean found = false;
+    private transient Boolean found = false;
 
     private String id;
     private ContentType contentType;

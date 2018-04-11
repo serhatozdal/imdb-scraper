@@ -1,5 +1,6 @@
 package com.serhatozdal.scraper;
 
+import com.google.gson.Gson;
 import com.serhatozdal.scraper.model.Media;
 
 /**
@@ -12,7 +13,7 @@ public class GetMediaById {
         scraper.downloadPoster(true);
         Media media = (Media) scraper.findById("tt0232500");
         if (media.isFound()) {
-            System.out.println(media);
+            System.out.println(new Gson().toJson(media));
         }
     }
 }
