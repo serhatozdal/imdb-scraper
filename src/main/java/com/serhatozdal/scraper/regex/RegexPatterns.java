@@ -34,10 +34,10 @@ public class RegexPatterns {
     protected static final String IMDB_POSTER_SMALL = "_V1_SY300.jpg";
     protected static final String IMDB_POSTER_LARGE = "_V1_SY500.jpg";
     protected static final String IMDB_PERSON_KEY_VALUE = "<a href=\"/name/(.*?)/.*?> (.*?)</a>";
-    protected static final String IMDB_DIRECTORS = "<h4 class=\"dataHeaderWithBorder\">Directed by(.*?)</table>";
-    protected static final String IMDB_WRITERS = "<h4 class=\"dataHeaderWithBorder\">Writing Credits(.*?)</table>";
-    protected static final String IMDB_PRODUCERS = "<h4 class=\"dataHeaderWithBorder\">Produced by(.*?)</table>";
-    protected static final String IMDB_MUSICIANS = "<h4 class=\"dataHeaderWithBorder\">Music by(.*?)</table>";
+    protected static final String IMDB_DIRECTORS = "<h4 class=\"dataHeaderWithBorder\">.*?Directed by(.*?)</table>";
+    protected static final String IMDB_WRITERS = "<h4 class=\"dataHeaderWithBorder\">.*?Writing Credits(.*?)</table>";
+    protected static final String IMDB_PRODUCERS = "<h4 class=\"dataHeaderWithBorder\">.*?Produced by(.*?)</table>";
+    protected static final String IMDB_MUSICIANS = "<h4 class=\"dataHeaderWithBorder\">.*?Music by(.*?)</table>";
     protected static final String IMDB_CAST = "class=\"dataHeaderWithBorder\">.*?Cast(.*?)</table>";
     protected static final String IMDB_CAST_KEY_VALUE = "<a href=\"/name/(.*?)/.*?span.*?>(.*?)</span>.*?class=\"character\".*?div>(<a.*?>)?(.*?)(</a>|</div>)";
 

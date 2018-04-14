@@ -12,7 +12,8 @@ public class GetMediaById {
         Scraper scraper = new MediaScraper();
         scraper.downloadPoster(true);
         //Media media = (Media) scraper.findById("tt0232500");
-        Media media = (Media) scraper.findById("tt4428398");
+        //Media media = (Media) scraper.findById("tt4428398");
+        Media media = (Media) scraper.findById("tt3032476");
         if (media.isFound()) {
             System.out.println(new Gson().toJson(media));
         }
