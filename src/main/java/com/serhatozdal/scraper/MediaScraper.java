@@ -4,7 +4,6 @@ import com.serhatozdal.scraper.http.Url;
 import com.serhatozdal.scraper.model.ContentType;
 import com.serhatozdal.scraper.model.Credits;
 import com.serhatozdal.scraper.model.Media;
-import com.serhatozdal.scraper.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,22 +45,14 @@ public class MediaScraper extends Scraper<Media> {
             content.setContentType(ContentType.get(match(IMDB_CONTENT_TYPE, html)));
             content.setOriginalTitle(match(IMDB_ORIGINAL_TITLE, html));
             content.setOtherTitle(match(IMDB_OTHER_TITLE, html));
-            content.setYear(Optional.of(match(IMDB_YEAR, html)).filter(s -> !s.isEmpty()).map(Short::valueOf).orElse(null));
-            content.setRating(
-                Optional.of(match(IMDB_RATING, html)).filter(s -> !s.isEmpty())
-                        .map(s -> s.replace(",", ".")).map(Float::valueOf).orElse(null)
-            ); // FIXME tr kontrolune gore noktayi virgul yapmak degisecek
-            content.setRatingCount(Optional.of(match(IMDB_RATING_COUNT, html))
-                    .filter(s -> !s.isEmpty()).map(Float::valueOf).orElse(null));
+            content.setYear(Optional.ofNullable(match(IMDB_YEAR, html)).map(Short::valueOf).orElse(null));
+            content.setRating(Optional.ofNullable(match(IMDB_RATING, html))
+                    .map(s -> s.replace(",", ".")).map(Float::valueOf).orElse(null)); // FIXME tr kontrolune gore noktayi virgul yapmak degisecek
+            content.setRatingCount(Optional.ofNullable(match(IMDB_RATING_COUNT, html)).map(Float::valueOf).orElse(null));
             content.setGenres(matchAll(IMDB_GENRES, html));
-            content.setDuration(Optional.of(match(IMDB_DURATION, html))
-                    .filter(s -> !s.isEmpty()).map(Integer::valueOf).orElse(null));
+            content.setDuration(Optional.ofNullable(match(IMDB_DURATION, html)).map(Integer::valueOf).orElse(null));
             content.setCountries(matchAll(A_HREF_ALL, match(IMDB_COUNTRIES, html)));
             content.setReleaseDate(match(IMDB_RELEASE_DATE, html));
-            content.setReleaseDateFormatted(
-                Optional.of(match(IMDB_RELEASE_DATE, html)).filter(s -> !s.isEmpty())
-                        .map(DateUtil::getDate).map(s -> DateUtil.format(s, "yyyy-MM-dd")).orElse(null)
-            );
             content.setLanguages(matchAll(A_HREF_ALL, match(IMDB_LANGUAGES, html)));
             content.setRecommendedTitles(matchAll(IMDB_RECOMMENDED_TITLES, html));
             content.setBudget(match(IMDB_BUDGET, html));
@@ -69,9 +60,9 @@ public class MediaScraper extends Scraper<Media> {
             content.setPlotKeywords(matchAll(A_HREF_SPAN, match(IMDB_PLOT_KEYWORDS, html)));
             content.setAlsoKnownAs(match(IMDB_ALSO_KNOWN_AS, html));
             content.setStoryLine(match(IMDB_STORYLINE, html));
-            content.setOscars(!match(IMDB_OSCARS, html).equals("") ? Integer.valueOf(match(IMDB_OSCARS, html)) : null);
-            content.setAwards(!match(IMDB_AWARDS, html).equals("") ? Integer.valueOf(match(IMDB_AWARDS, html)) : null);
-            content.setNominations(!match(IMDB_NOMINATIONS, html).equals("") ? Integer.valueOf(match(IMDB_NOMINATIONS, html)) : null);
+            content.setOscars(Optional.ofNullable(match(IMDB_OSCARS, html)).map(Integer::valueOf).orElse(null));
+            content.setAwards(Optional.ofNullable(match(IMDB_AWARDS, html)).map(Integer::valueOf).orElse(null));
+            content.setNominations(Optional.ofNullable(match(IMDB_NOMINATIONS, html)).map(Integer::valueOf).orElse(null));
             String poster = match(IMDB_POSTER, html).replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_SMALL);
             String posterLarge = match(IMDB_POSTER, html).replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_LARGE);
             if (downloadPoster) {
@@ -84,7 +75,7 @@ public class MediaScraper extends Scraper<Media> {
         }
     }
 
-    private synchronized void parseCreditsPage() {
+    private void parseCreditsPage() {
 
         String creditsUrl = "http://www.imdb.com/title/" + id + "/fullcredits/";
         Url url = new Url();

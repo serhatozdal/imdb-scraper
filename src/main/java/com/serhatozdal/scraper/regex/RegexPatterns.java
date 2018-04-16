@@ -12,7 +12,7 @@ public class RegexPatterns {
     protected static final String IMDB_CONTENT_TYPE = "'og:type' content=\"(.*?)\"";
     protected static final String IMDB_ORIGINAL_TITLE = "property='og:title' content=\"(.*?)(\"| \\()";
     protected static final String IMDB_OTHER_TITLE = "<title>(.*?)( \\().*</title>";
-    protected static final String IMDB_YEAR = "property='og:title' content=\".*?([0-9]{4}).*?\"";
+    protected static final String IMDB_YEAR = "property='og:title' content=\".*?\\(([0-9]{4})\\)\"";
     protected static final String IMDB_RATING = "<span itemprop=\"ratingValue\">(.*?)</span>";
     protected static final String IMDB_RATING_COUNT = "<span class=\"small\" itemprop=\"ratingCount\">(.*?)</span>";
     protected static final String IMDB_GENRES = "<span class=\"itemprop\" itemprop=\"genre\">(.*?)</span>";

@@ -10,7 +10,7 @@ public class GetPersonById {
 
     public static void main(String[] args) {
         Scraper scraper = new PersonScraper();
-        scraper.downloadPoster(true);
+//        scraper.downloadPoster(true);
         Person person = (Person) scraper.findById("nm0908094");
         if (person.isFound()) {
             System.out.println(new Gson().toJson(person));

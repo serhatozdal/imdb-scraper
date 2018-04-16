@@ -16,7 +16,6 @@ public class Media extends Content {
     private Integer duration;
     private List<String> countries;
     private String releaseDate;
-    private String releaseDateFormatted;
     private List<String> languages;
     private List<String> recommendedTitles;
     private String budget;
@@ -103,14 +102,6 @@ public class Media extends Content {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    public String getReleaseDateFormatted() {
-        return releaseDateFormatted;
-    }
-
-    public void setReleaseDateFormatted(String releaseDateFormatted) {
-        this.releaseDateFormatted = releaseDateFormatted;
     }
 
     public List<String> getLanguages() {

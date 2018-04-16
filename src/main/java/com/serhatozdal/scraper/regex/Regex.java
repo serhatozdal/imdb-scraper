@@ -16,7 +16,7 @@ public class Regex extends RegexPatterns {
     }
 
     protected String match(String regexPattern, String html, Integer groupIndex) {
-        String result = "";
+        String result = null;
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(html);
         if (matcher.find())
@@ -30,11 +30,14 @@ public class Regex extends RegexPatterns {
 
     protected List<String> matchAll(String regexPattern, String html, Integer groupIndex) {
         List<String> resultList = new ArrayList<>();
-        Pattern pattern = Pattern.compile(regexPattern);
-        Matcher matcher = pattern.matcher(html);
-        while (matcher.find())
-            resultList.add(matcher.group(groupIndex));
-        return resultList;
+
+        if (Optional.ofNullable(html).isPresent()) {
+            Pattern pattern = Pattern.compile(regexPattern);
+            Matcher matcher = pattern.matcher(html);
+            while (matcher.find())
+                resultList.add(matcher.group(groupIndex));
+        }
+        return Optional.of(resultList).filter(r -> r.size() > 0).orElse(null);
     }
 
     protected List<Credits> matchAllCredits(String regexPattern, String html, Integer keyIndex, Integer valueIndex) {
@@ -42,12 +45,15 @@ public class Regex extends RegexPatterns {
 
         List<String> keyList = matchAll(regexPattern, html, keyIndex);
         List<String> valueList = matchAll(regexPattern, html, valueIndex);
-        if (keyList.size() == valueList.size()) {
-            for (int i = 0; i < keyList.size(); i++) {
-                Credits credits = new Credits();
-                credits.setImdbId(keyList.get(i));
-                credits.setName(valueList.get(i));
-                list.add(credits);
+
+        if (Optional.ofNullable(keyList).isPresent() && Optional.ofNullable(valueList).isPresent()) {
+            if (keyList.size() == valueList.size()) {
+                for (int i = 0; i < keyList.size(); i++) {
+                    Credits credits = new Credits();
+                    credits.setImdbId(keyList.get(i));
+                    credits.setName(valueList.get(i));
+                    list.add(credits);
+                }
             }
         }
         return list;

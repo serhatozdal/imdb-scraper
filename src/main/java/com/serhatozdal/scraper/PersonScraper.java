@@ -1,7 +1,6 @@
 package com.serhatozdal.scraper;
 
 import com.serhatozdal.scraper.http.Url;
-import com.serhatozdal.scraper.model.Content;
 import com.serhatozdal.scraper.model.ContentType;
 import com.serhatozdal.scraper.model.Person;
 import com.serhatozdal.scraper.util.HtmlEntities;
