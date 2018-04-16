@@ -1,8 +1,6 @@
 package com.serhatozdal.scraper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.serhatozdal.scraper.http.Url;
-import com.serhatozdal.scraper.model.ContentType;
 import com.serhatozdal.scraper.model.Media;
 import com.serhatozdal.scraper.regex.Regex;
 import org.junit.Test;
@@ -10,8 +8,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static org.junit.Assert.*;
 
@@ -21,22 +17,12 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class MediaTests extends Regex {
 
-    private String mainHtml;
-    private String creditsHtml;
-    private Media media;
+    private Media expectedMedia;
+    private Media actualMedia;
 
-    public MediaTests(String movieId, Media media) {
-        Url url = new Url();
-
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        Thread thread1 = new Thread(() -> mainHtml = url.fetchHtml("http://www.imdb.com/title/" + movieId));
-        Thread thread2 = new Thread(() -> creditsHtml = url.fetchHtml("http://www.imdb.com/title/" + movieId + "/fullcredits/"));
-        executorService.execute(thread1);
-        executorService.execute(thread2);
-        executorService.shutdown();
-        while (!executorService.isTerminated());
-
-        this.media = media;
+    public MediaTests(String movieId, Media expectedMedia) {
+        this.expectedMedia = expectedMedia;
+        this.actualMedia = new MediaScraper().findById(movieId);
     }
 
     @Parameterized.Parameters
@@ -49,24 +35,23 @@ public class MediaTests extends Regex {
 
     @Test
     public void contentType() {
-        assertEquals(media.getContentType(), ContentType.get(match(IMDB_CONTENT_TYPE, mainHtml)));
+        assertEquals(expectedMedia.getContentType(), actualMedia.getContentType());
     }
 
     // TODO title & original_title should be added
 
     @Test
     public void year() {
-        assertEquals(media.getYear(), Optional.ofNullable(match(IMDB_YEAR, mainHtml)).map(Short::valueOf).orElse(null));
+        assertEquals(expectedMedia.getYear(), actualMedia.getYear());
     }
 
     @Test
     public void rating() {
-        assertEquals(media.getRating(), Optional.ofNullable(match(IMDB_RATING, mainHtml))
-                .map(s -> s.replace(",", ".")).map(Float::valueOf).orElse(null));
+        assertEquals(expectedMedia.getRating(), actualMedia.getRating());
     }
 
     @Test
     public void ratingCount() {
-        assertEquals(media.getRatingCount(), Optional.ofNullable(match(IMDB_RATING_COUNT, mainHtml)).map(Float::valueOf).orElse(null));
+        assertEquals(expectedMedia.getRatingCount(), actualMedia.getRatingCount());
     }
 }
