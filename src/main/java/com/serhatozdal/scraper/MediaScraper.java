@@ -36,7 +36,7 @@ public class MediaScraper extends Scraper<Media> {
 
     private void parseMainPage() {
 
-        String imdbUrl = "http://www.imdb.com/title/" + id;
+        String imdbUrl = "https://www.imdb.com/title/" + id;
         Url url = new Url();
         String html = url.fetchHtml(imdbUrl);
 
@@ -77,7 +77,7 @@ public class MediaScraper extends Scraper<Media> {
 
     private void parseCreditsPage() {
 
-        String creditsUrl = "http://www.imdb.com/title/" + id + "/fullcredits/";
+        String creditsUrl = "https://www.imdb.com/title/" + id + "/fullcredits/";
         Url url = new Url();
         String html = url.fetchHtml(creditsUrl);
 

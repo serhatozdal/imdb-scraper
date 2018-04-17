@@ -11,7 +11,9 @@ public class GetMediaById {
     public static void main(String[] args) {
         Scraper scraper = new MediaScraper();
 //        scraper.downloadPoster(true);
-        Media media = (Media) scraper.findById("tt0232500");
+//        Media media = (Media) scraper.findById("tt0232500");
+        Media media = (Media) scraper.findById("tt0106582");
+//        Media media = (Media) scraper.findById("tt1189031"); // 404 not found
 //        Media media = (Media) scraper.findById("tt4428398");
 //        Media media = (Media) scraper.findById("tt3032476");
         if (media.isFound()) {
