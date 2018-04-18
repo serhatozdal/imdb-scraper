@@ -12,6 +12,12 @@ abstract public class Scraper<T> extends Regex
 
     protected Boolean downloadPoster = false;
 
+    protected Thread.UncaughtExceptionHandler exceptionHandler;
+
+    public void setExceptionHandler(Thread.UncaughtExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
+    }
+
     public void downloadPoster(Boolean downloadPoster) {
         this.downloadPoster = downloadPoster;
     }

@@ -4,6 +4,7 @@ import com.serhatozdal.scraper.http.Url;
 import com.serhatozdal.scraper.model.ContentType;
 import com.serhatozdal.scraper.model.Credits;
 import com.serhatozdal.scraper.model.Media;
+import com.serhatozdal.scraper.thread.ScraperThreadFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +20,11 @@ public class MediaScraper extends Scraper<Media> {
         this.id = id;
         content = new Media();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ScraperThreadFactory threadFactory = new ScraperThreadFactory(exceptionHandler);
+        ExecutorService executorService = Executors.newFixedThreadPool(2, threadFactory);
 
-        Thread thread1 = new Thread(this::parseMainPage);
-        Thread thread2 = new Thread(this::parseCreditsPage);
-
-        executorService.execute(thread1);
-        executorService.execute(thread2);
+        executorService.execute(this::parseMainPage);
+        executorService.execute(this::parseCreditsPage);
 
         executorService.shutdown();
 

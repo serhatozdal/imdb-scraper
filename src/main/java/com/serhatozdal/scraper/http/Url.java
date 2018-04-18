@@ -46,7 +46,7 @@ public class Url {
         return html.toString();
     }
 
-        public String downloadFileAsBase64(String fileUrl) {
+    public String downloadFileAsBase64(String fileUrl) {
         String base64File = null;
         try {
             URL url = new URL(fileUrl);

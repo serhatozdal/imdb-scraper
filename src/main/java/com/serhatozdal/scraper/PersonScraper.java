@@ -3,6 +3,7 @@ package com.serhatozdal.scraper;
 import com.serhatozdal.scraper.http.Url;
 import com.serhatozdal.scraper.model.ContentType;
 import com.serhatozdal.scraper.model.Person;
+import com.serhatozdal.scraper.thread.ScraperThreadFactory;
 import com.serhatozdal.scraper.util.HtmlEntities;
 
 import java.util.concurrent.ExecutorService;
@@ -16,13 +17,11 @@ public class PersonScraper extends Scraper<Person> {
         this.id = id;
         content = new Person();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ScraperThreadFactory threadFactory = new ScraperThreadFactory(exceptionHandler);
+        ExecutorService executorService = Executors.newFixedThreadPool(2, threadFactory);
 
-        Thread thread1 = new Thread(this::parseMainPage);
-        Thread thread2 = new Thread(this::parseBiographyPage);
-
-        executorService.execute(thread1);
-        executorService.execute(thread2);
+        executorService.execute(this::parseMainPage);
+        executorService.execute(this::parseBiographyPage);
 
         executorService.shutdown();
         while (!executorService.isTerminated());
@@ -32,7 +31,7 @@ public class PersonScraper extends Scraper<Person> {
 
     private void parseMainPage() {
 
-        String imdbUrl = "http://www.imdb.com/name/" + id;
+        String imdbUrl = "https://www.imdb.com/name/" + id;
 
         Url url = new Url();
         String html = url.fetchHtml(imdbUrl);
@@ -59,7 +58,7 @@ public class PersonScraper extends Scraper<Person> {
 
     private void parseBiographyPage() {
 
-        String imdbUrl = "http://www.imdb.com/name/" + id + "/bio";
+        String imdbUrl = "https://www.imdb.com/name/" + id + "/bio";
 
         Url url = new Url();
         String html = url.fetchHtml(imdbUrl);
