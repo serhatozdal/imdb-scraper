@@ -62,9 +62,9 @@ public class MediaScraper extends Scraper<Media> {
             content.setOscars(Optional.ofNullable(match(IMDB_OSCARS, html)).map(Integer::valueOf).orElse(null));
             content.setAwards(Optional.ofNullable(match(IMDB_AWARDS, html)).map(Integer::valueOf).orElse(null));
             content.setNominations(Optional.ofNullable(match(IMDB_NOMINATIONS, html)).map(Integer::valueOf).orElse(null));
-            String poster = match(IMDB_POSTER, html).replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_SMALL);
-            String posterLarge = match(IMDB_POSTER, html).replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_LARGE);
-            if (downloadPoster) {
+            String poster = Optional.ofNullable(match(IMDB_POSTER, html)).map(s -> s.replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_SMALL)).orElse(null);
+            String posterLarge = Optional.ofNullable(match(IMDB_POSTER, html)).map(s -> s.replaceAll(IMDB_POSTER_REPLACE, IMDB_POSTER_LARGE)).orElse(null);
+            if (Optional.ofNullable(poster).isPresent() && Optional.ofNullable(posterLarge).isPresent() && downloadPoster) {
                 poster = url.downloadFileAsBase64(poster);
                 posterLarge = url.downloadFileAsBase64(posterLarge);
             }
