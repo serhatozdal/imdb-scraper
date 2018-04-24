@@ -12,10 +12,12 @@ public class GetMediaById {
         Scraper scraper = new MediaScraper();
 //        scraper.downloadPoster(true);
 //        Media media = (Media) scraper.findById("tt0232500");
-        Media media = (Media) scraper.findById("tt0106582");
+//        Media media = (Media) scraper.findById("tt0106582");
+//        Media media = (Media) scraper.findById("tt0163151");
 //        Media media = (Media) scraper.findById("tt1189031"); // 404 not found
 //        Media media = (Media) scraper.findById("tt4428398");
 //        Media media = (Media) scraper.findById("tt3032476");
+        Media media = (Media) scraper.findById("tt0176703");
         if (media.isFound()) {
             System.out.println(new Gson().toJson(media));
         }
