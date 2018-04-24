@@ -58,7 +58,7 @@ public class MediaScraper extends Scraper<Media> {
             content.setCumulativeGross(match(IMDB_CUMULATIVE_GROSS, html));
             content.setPlotKeywords(matchAll(A_HREF_SPAN, match(IMDB_PLOT_KEYWORDS, html)));
             content.setAlsoKnownAs(match(IMDB_ALSO_KNOWN_AS, html));
-            content.setStoryLine(match(IMDB_STORYLINE, html));
+            content.setStoryLine(Optional.ofNullable(match(IMDB_STORYLINE, html)).map(String::trim).orElse(null));
             content.setOscars(Optional.ofNullable(match(IMDB_OSCARS, html)).map(Integer::valueOf).orElse(null));
             content.setAwards(Optional.ofNullable(match(IMDB_AWARDS, html)).map(Integer::valueOf).orElse(null));
             content.setNominations(Optional.ofNullable(match(IMDB_NOMINATIONS, html)).map(Integer::valueOf).orElse(null));

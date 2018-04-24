@@ -17,7 +17,8 @@ public class GetMediaById {
 //        Media media = (Media) scraper.findById("tt1189031"); // 404 not found
 //        Media media = (Media) scraper.findById("tt4428398");
 //        Media media = (Media) scraper.findById("tt3032476");
-        Media media = (Media) scraper.findById("tt0176703");
+//        Media media = (Media) scraper.findById("tt0176703");
+        Media media = (Media) scraper.findById("tt6468322"); // la casa de papel
         if (media.isFound()) {
             System.out.println(new Gson().toJson(media));
         }
