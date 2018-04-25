@@ -11,7 +11,7 @@ public class Media extends Content {
     private String otherTitle;
     private Short year;
     private Float rating;
-    private Float ratingCount;
+    private Integer ratingCount;
     private List<String> genres;
     private Integer duration;
     private List<String> countries;
@@ -64,11 +64,11 @@ public class Media extends Content {
         this.rating = rating;
     }
 
-    public Float getRatingCount() {
+    public Integer getRatingCount() {
         return ratingCount;
     }
 
-    public void setRatingCount(Float ratingCount) {
+    public void setRatingCount(Integer ratingCount) {
         this.ratingCount = ratingCount;
     }
 

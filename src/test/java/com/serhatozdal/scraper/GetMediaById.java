@@ -18,7 +18,9 @@ public class GetMediaById {
 //        Media media = (Media) scraper.findById("tt4428398");
 //        Media media = (Media) scraper.findById("tt3032476");
 //        Media media = (Media) scraper.findById("tt0176703");
-        Media media = (Media) scraper.findById("tt6468322"); // la casa de papel
+//        Media media = (Media) scraper.findById("tt6468322"); // la casa de papel
+//        Media media = (Media) scraper.findById("tt6450042"); // null
+        Media media = (Media) scraper.findById("tt0903747"); // numberformat
         if (media.isFound()) {
             System.out.println(new Gson().toJson(media));
         }

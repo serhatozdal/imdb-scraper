@@ -7,6 +7,7 @@ import com.serhatozdal.scraper.model.Media;
 import com.serhatozdal.scraper.thread.ScraperThreadFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
@@ -47,7 +48,7 @@ public class MediaScraper extends Scraper<Media> {
             content.setYear(Optional.ofNullable(match(IMDB_YEAR, html)).map(Short::valueOf).orElse(null));
             content.setRating(Optional.ofNullable(match(IMDB_RATING, html))
                     .map(s -> s.replace(",", ".")).map(Float::valueOf).orElse(null)); // FIXME tr kontrolune gore noktayi virgul yapmak degisecek
-            content.setRatingCount(Optional.ofNullable(match(IMDB_RATING_COUNT, html)).map(Float::valueOf).orElse(null));
+            content.setRatingCount(Optional.ofNullable(match(IMDB_RATING_COUNT, html)).map(s -> s.replace(".", "")).map(Integer::valueOf).orElse(null));
             content.setGenres(matchAll(IMDB_GENRES, html));
             content.setDuration(Optional.ofNullable(match(IMDB_DURATION, html)).map(Integer::valueOf).orElse(null));
             content.setCountries(matchAll(A_HREF_ALL, match(IMDB_COUNTRIES, html)));
@@ -91,7 +92,8 @@ public class MediaScraper extends Scraper<Media> {
             List<String> castRoles = matchAll(IMDB_CAST_KEY_VALUE, match(IMDB_CAST, html), 4);
 
             List<Credits> casts = new ArrayList<>();
-            if (imdbIds.size() == castNames.size()) {
+            if (Optional.ofNullable(imdbIds).isPresent() && Optional.ofNullable(castNames).isPresent()
+                    && imdbIds.size() == castNames.size()) {
                 for (int i = 0; i < imdbIds.size(); i++) {
                     Credits credits = new Credits();
                     credits.setImdbId(imdbIds.get(i));
