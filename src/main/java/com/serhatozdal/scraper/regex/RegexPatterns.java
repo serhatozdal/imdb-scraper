@@ -39,7 +39,8 @@ public class RegexPatterns {
     protected static final String IMDB_PRODUCERS = "<h4 class=\"dataHeaderWithBorder\">.*?Produced by(.*?)</table>";
     protected static final String IMDB_MUSICIANS = "<h4 class=\"dataHeaderWithBorder\">.*?Music by(.*?)</table>";
     protected static final String IMDB_CAST = "class=\"dataHeaderWithBorder\">.*?Cast(.*?)</table>";
-    protected static final String IMDB_CAST_KEY_VALUE = "<a href=\"/name/(.*?)/.*?span.*?>(.*?)</span>.*?class=\"character\".*?div>(<a.*?>)?(.*?)(</a>|</div>)";
+    protected static final String IMDB_CAST_KEY_VALUE = "<a href=\"/name/(nm\\d+)/.*?itemprop='url'>.*?>(.*?)</span";
+    protected static final String IMDB_CAST_ROLE_NAMES = "class=\"character\">(.*?)(</td>|</a>|\\d episode)";
 
     protected static final String IMDB_PERSON_KNOWN_FOR = "id=\"knownfor\">(.*?)<script>";
     protected static final String IMDB_PERSON_KNOWN_FOR_VALUE = "class=\"knownfor-title-role\"><a href=\"/title/(.*?)/.*?</a>";

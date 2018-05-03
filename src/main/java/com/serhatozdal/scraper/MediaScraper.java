@@ -86,10 +86,10 @@ public class MediaScraper extends Scraper<Media> {
             content.setWriters(matchAllCredits(IMDB_PERSON_KEY_VALUE, match(IMDB_WRITERS, html), 1, 2));
             content.setProducers(matchAllCredits(IMDB_PERSON_KEY_VALUE, match(IMDB_PRODUCERS, html), 1, 2));
             content.setMusicians(matchAllCredits(IMDB_PERSON_KEY_VALUE, match(IMDB_MUSICIANS, html), 1, 2));
-            content.setCast(matchAllCredits(IMDB_CAST_KEY_VALUE, match(IMDB_CAST, html), 1, 2));
+
             List<String> imdbIds = matchAll(IMDB_CAST_KEY_VALUE, match(IMDB_CAST, html));
             List<String> castNames = matchAll(IMDB_CAST_KEY_VALUE, match(IMDB_CAST, html), 2);
-            List<String> castRoles = matchAll(IMDB_CAST_KEY_VALUE, match(IMDB_CAST, html), 4);
+            List<String> castRoles = matchAll(IMDB_CAST_ROLE_NAMES, match(IMDB_CAST, html));
 
             List<Credits> casts = new ArrayList<>();
             if (Optional.ofNullable(imdbIds).isPresent() && Optional.ofNullable(castNames).isPresent()
@@ -98,7 +98,7 @@ public class MediaScraper extends Scraper<Media> {
                     Credits credits = new Credits();
                     credits.setImdbId(imdbIds.get(i));
                     credits.setName(castNames.get(i));
-                    credits.setRoleName(castRoles.get(i));
+                    credits.setRoleName(castRoles.get(i).replaceAll(ALL_HTML_TAGS, "").replace("&nbsp;", ""));
                     casts.add(credits);
                 }
                 content.setCast(casts);
