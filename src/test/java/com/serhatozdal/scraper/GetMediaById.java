@@ -11,14 +11,14 @@ public class GetMediaById {
     public static void main(String[] args) {
         Scraper scraper = new MediaScraper();
 //        scraper.downloadPoster(true);
-        Media media = (Media) scraper.findById("tt0232500");
+//        Media media = (Media) scraper.findById("tt0232500");
 //        Media media = (Media) scraper.findById("tt0106582");
 //        Media media = (Media) scraper.findById("tt0163151");
 //        Media media = (Media) scraper.findById("tt1189031"); // 404 not found
 //        Media media = (Media) scraper.findById("tt4428398");
 //        Media media = (Media) scraper.findById("tt3032476");
 //        Media media = (Media) scraper.findById("tt0176703");
-//        Media media = (Media) scraper.findById("tt6468322"); // la casa de papel
+        Media media = (Media) scraper.findById("tt6468322"); // la casa de papel
 //        Media media = (Media) scraper.findById("tt6450042"); // null
 //        Media media = (Media) scraper.findById("tt0903747"); // numberformat
         if (media.isFound()) {
