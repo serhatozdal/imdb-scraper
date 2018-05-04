@@ -8,7 +8,7 @@ Pure Java and Multithread Imdb Scraper Api for getting movies and persons.
 Installation
 =======
 
-###Maven
+### Maven
 Step 1. Add the JitPack repository to your build file
 ```xml
 <repositories>
@@ -28,7 +28,7 @@ Step 2. Add the dependency
 </dependency>
 ```
 
-###Gradle
+### Gradle
 Add it in your root build.gradle at the end of repositories:
 ```
 allprojects {
@@ -49,8 +49,8 @@ dependencies {
 Usage
 =======
 
-##Movie Examples
-####Simple Example
+## Movie Examples
+#### Simple Example
 ```java
 Scraper scraper = new MediaScraper();
 Media media = (Media) scraper.findById("tt0232500");
@@ -62,7 +62,7 @@ if (media.isFound()) {
     System.out.println("Poster Large URL   : " + media.getPosterLarge());
 ```
 
-####Download Posters
+#### Download Posters
 ```java
 Scraper scraper = new MediaScraper();
 scraper.downloadPoster(true);
@@ -74,7 +74,7 @@ if (media.isFound()) {
     ......
 ```
 
-####Exception Handler
+#### Exception Handler
 ```java
 Scraper scraper = new MediaScraper();
 scraper.downloadPoster(true);
@@ -85,7 +85,7 @@ if (media.isFound()) {
     ......
 ```
 
-##Person Example
+## Person Example
 ```java
 Scraper scraper = new PersonScraper();
 scraper.downloadPoster(true);
